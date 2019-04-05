@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+
+import argparse
+import os
+import subprocess
+
+# The number of CPU cores available
+cores = os.cpu_count()
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--collections", nargs="+", type=str, required=True, help="the collection names")
+
+args = parser.parse_args()
+
+# Iterate over the [name]=[path] pairs
+for name in args.collections:
+  subprocess.run("zcat /input/collections/{1} | pisa/build/bin/parse_collection -f trectext -j {0} -b 10000 --stemmer porter2 -o {1}".format(cores, name).split())
