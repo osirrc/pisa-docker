@@ -15,3 +15,8 @@ args = parser.parse_args()
 # Iterate over the [name]=[path] pairs
 for name in args.collections:
   subprocess.run("zcat /input/collections/{1} | pisa/build/bin/parse_collection -f trectext -j {0} -b 10000 --stemmer porter2 -o {1}".format(cores, name).split())
+
+
+# Compress indexes
+for name in args.collections:
+  subprocess.run("pisa/build/bin/create_freq_index -t block_simdbp -c ./{0} -o {0}.block_simdbp".format(name).split())
