@@ -20,3 +20,9 @@ for name in args.collections:
 # Compress indexes
 for name in args.collections:
   subprocess.run("pisa/build/bin/create_freq_index -t block_simdbp -c ./{0} -o {0}.block_simdbp".format(name).split())
+
+# Build additional data
+for name in args.collections:
+  # TODO: create a map containing the lambdas we need to use for every collection
+  lambda = 0 
+  subprocess.run("pisa/build/bin/create_wand_data -c ./{0} -l {1} --variable-block -o {0}.vbmw".format(name, lambda).split())
