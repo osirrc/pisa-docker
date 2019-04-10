@@ -10,19 +10,19 @@ cores = os.cpu_count()
 parser = argparse.ArgumentParser()
 parser.add_argument("--collections", nargs="+", type=str, required=True, help="the collection names")
 
-args = parser.parse_args()
+args, _ = parser.parse_known_args()
 
 # Iterate over the [name]=[path] pairs
 for name in args.collections:
-  subprocess.run("zcat /input/collections/{1} | pisa/build/bin/parse_collection -f trectext -j {0} -b 10000 --stemmer porter2 -o {1}".format(cores, name).split())
-
-
-# Compress indexes
-for name in args.collections:
-  subprocess.run("pisa/build/bin/create_freq_index -t block_simdbp -c ./{0} -o {0}.block_simdbp".format(name).split())
-
-# Build additional data
-for name in args.collections:
-  # TODO: create a map containing the lambdas we need to use for every collection
-  lambda = 0 
-  subprocess.run("pisa/build/bin/create_wand_data -c ./{0} -l {1} --variable-block -o {0}.vbmw".format(name, lambda).split())
+  subprocess.check_call("zcat /input/collections/{0}/* | parse_collection -f trectext "
+                        "-b 10000 --stemmer porter2 --content-parser html -o ./{0}.fwd"
+                        .format(name), shell=True)
+  subprocess.check_call("invert -i {0}.fwd -o {0}.inv --term-count $(cat {0}.fwd.terms | wc -l)".format(name),
+                        shell=True)
+  subprocess.check_call("create_freq_index -t block_simdbp -c {0}.inv -o {0}.block_simdbp".format(name),
+                        shell=True)
+  l = 11
+  subprocess.check_call("create_wand_data -c {0}.inv -l "
+                        "{1} --variable-block -o {0}.vbmw"
+                        .format(name, l),
+                        shell=True)

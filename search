@@ -11,6 +11,8 @@ parser.add_argument("--topic", required=True, type=str, help="the name of the to
 parser.add_argument("--topic_format", default="TREC", type=str, help="the format of the topic file")
 parser.add_argument("--top_k", default=1000, type=int, help="the number of results for top-k retrieval")
 
-args = parser.parse_args()
+args = parser.parse_known_args()
 
-subprocess.run("/pisa/build/bin/queries -t block_simdbp -a block_max_wand -i {0}.block_simdbp -w {0}.vbmw -q {1} -k {2}".format(args.collection, args.topic, args.top_k).split())
+subprocess.run("evaluate_queries -t block_simdbp -a block_max_wand "
+               "-i {0}.block_simdbp -w {0}.vbmw -q {1} -k {2} > /output/{0}-{2}"
+               .format(args.collection, args.topic, args.top_k).split())
