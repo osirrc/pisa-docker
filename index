@@ -14,7 +14,7 @@ args, _ = parser.parse_known_args()
 
 # Iterate over the [name]=[path] pairs
 for name in args.collections:
-  subprocess.check_call("zcat /input/collections/{0}/* | parse_collection -f trectext "
+  subprocess.check_call("zcat -r /input/collections/{0}/* | parse_collection -f trectext "
                         "-b 10000 --stemmer porter2 --content-parser html -o ./{0}.fwd"
                         .format(name), shell=True)
   subprocess.check_call("invert -i {0}.fwd -o {0}.inv --term-count $(cat {0}.fwd.terms | wc -l)".format(name),
