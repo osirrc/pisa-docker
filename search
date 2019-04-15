@@ -14,6 +14,6 @@ args, _ = parser.parse_known_args()
 
 subprocess.check_call("extract_topics -i /input/topics/{1} -o {0}".format(args.topic), shell=True)
 
-subprocess.check_call("evaluate_queries -t block_simdbp -i Robust04.block_simdbp -w {0}.vbmw -q {1}.title --stemmer porter2 "
+subprocess.check_call("evaluate_queries -a block_max_wand -t block_simdbp -i Robust04.block_simdbp -w {0}.vbmw -q {1}.title --stemmer porter2 "
                       "--documents {0}.fwd.documents --terms {0}.fwd.terms -k {2} > /output/{0}-{2}"
                .format(args.collection, args.topic, args.top_k), shell=True)
