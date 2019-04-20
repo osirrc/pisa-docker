@@ -7,6 +7,11 @@ PISA Docker image for the SIGIR OSIRRC 2019 Open Source Challenge.
 ## Running
 Use the commands below to run the image from the [jig](https://github.com/osirrc2019/jig) directory, updating the corpus details as appropriate.
 
+### Pull from DockerHub
+```
+docker pull pisa/pisa-osirrc2019
+```
+
 ### Prepare
 ```
 python run.py prepare 
