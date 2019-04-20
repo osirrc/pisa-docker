@@ -1,19 +1,17 @@
 #!/usr/bin/env python3
 import argparse
+import json
 import subprocess
 
 print("Searching...")
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--collection", required=True, type=str, help="the name of the collection")
-parser.add_argument("--topic", required=True, type=str, help="the name of the topic file")
-parser.add_argument("--topic_format", default="TREC", type=str, help="the format of the topic file")
-parser.add_argument("--top_k", default=1000, type=int, help="the number of results for top-k retrieval")
+parser.add_argument("--json", type=json.loads, required=True, help="the json input")
 
 args, _ = parser.parse_known_args()
 
-subprocess.check_call("extract_topics -i /input/topics/{0} -o {0}".format(args.topic), shell=True)
+subprocess.check_call("extract_topics -i {0} -o {1}".format(args.json["topic"]["path"], args.json["collection"]["name"]), shell=True)
 
-subprocess.check_call("evaluate_queries -a block_max_wand -t block_simdbp -i Robust04.block_simdbp -w {0}.vbmw -q {1}.title --stemmer porter2 "
-                      "--documents {0}.fwd.documents --terms {0}.fwd.terms -k {2} > /output/{0}-{2}"
-               .format(args.collection, args.topic, args.top_k), shell=True)
+subprocess.check_call("evaluate_queries -a block_max_wand -t block_simdbp -i {0}.block_simdbp -w {0}.vbmw -q {0}.title --stemmer porter2 "
+                      "--documents {0}.fwd.documents --terms {0}.fwd.terms -k {1} > /output/{0}-{2}"
+                      .format(args.json["collection"]["name"], args.json["top_k"]), shell=True)
