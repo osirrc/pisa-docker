@@ -13,5 +13,5 @@ args, _ = parser.parse_known_args()
 subprocess.check_call("extract_topics -i {0} -o {1}".format(args.json["topic"]["path"], args.json["collection"]["name"]), shell=True)
 
 subprocess.check_call("evaluate_queries -a block_max_wand -t block_simdbp -i {0}.block_simdbp -w {0}.vbmw -q {0}.title --stemmer porter2 "
-                      "--documents {0}.fwd.documents --terms {0}.fwd.terms -k {1} > /output/{0}-{1}"
+                      "--documents {0}.fwd.doclex --terms {0}.fwd.termlex -k {1} > /output/{0}-{1}"
                       .format(args.json["collection"]["name"], args.json["top_k"]), shell=True)
