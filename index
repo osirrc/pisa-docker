@@ -12,7 +12,7 @@ args, _ = parser.parse_known_args()
 # Iterate over the [name]=[path] pairs
 for collection in args.json["collections"]:
     name, path = collection["name"], collection["path"]
-    subprocess.check_call("zcat $(find {1} -type f  -name '*.*z' \( -path '*/disk4/fr94/[0-9]*/*' -o  -path '*/disk4/ft/ft*' -o -path '*/disk5/fbis/fb*' -o -path '*/disk5/latimes/la*' \) -type f) | parse_collection -f trectext "
+    subprocess.check_call("zcat $(find {1} -type f  -name '*.*z' \( -path '*/disk4/fr94/[0-9]*/*' -o  -path '*/disk4/ft/ft*' -o -path '*/disk5/fbis/fb*' -o -path '*/disk5/latimes/la*' \)) | parse_collection -f trectext "
                           "-b 10000 --stemmer porter2 --content-parser html -o ./{0}.fwd"
                           .format(name, path), shell=True)
     subprocess.check_call("invert -i {0}.fwd -o {0}.inv --term-count $(cat {0}.fwd.terms | wc -l)".format(name),
