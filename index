@@ -30,4 +30,4 @@ for collection in args.json["collections"]:
 	elif name.lower() == "core18":
         print("Not implemented yet!")
     else:
-		print("Unknown collection: " + name)
+	print("Unknown collection: " + name)
