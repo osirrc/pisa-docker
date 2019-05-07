@@ -1,26 +1,43 @@
-#!/usr/bin/env python3
+#!/usr/bin/env /root/miniconda3/bin/python
 import argparse
 import json
 import subprocess
 
 print("Searching...")
 
+
+def evaluate_command(name, k, *,
+                     algorithm="block_max_wand", index_type="block_simdbp",
+                     wand_type="vbmw", stemmer="porter2"):
+    return ("evaluate_queries "
+            f"-t {index_type} "
+            f"-a {algorithm} "
+            f"-i {name}.{index_type} "
+            f"-w {name}.{wand_type} "
+            f"--stemmer {stemmer} "
+            f"--documents {name}.fwd.doclex "
+            f"--terms {name}.fwd.termlex "
+            f"-k {k} "
+            f"-q {name}.title "
+            f"> /output/{name}-{k}")
+
+
+def choose_evaluate_command(name, k):
+    """For now, all execute the same way."""
+    return evaluate_command(name, k)
+
+
 parser = argparse.ArgumentParser()
-parser.add_argument("--json", type=json.loads, required=True, help="the json input")
-
+parser.add_argument("--json", type=json.loads, required=True,
+                    help="the json input")
 args, _ = parser.parse_known_args()
+name, k = args.json["collection"]["name"], args.json["top_k"]
 
-name = args.json["collection"]["name"]
-
-subprocess.check_call("extract_topics -i {0} -o {1}".format(args.json["topic"]["path"], name), shell=True)
-
-if name.lower() == "robust04":
-  subprocess.check_call("evaluate_queries -a block_max_wand -t block_simdbp -i {0}.block_simdbp -w {0}.vbmw -q {0}.title --stemmer porter2 "
-                        "--documents {0}.fwd.doclex --terms {0}.fwd.termlex -k {1} > /output/{0}-{1}"
-                        .format(name, args.json["top_k"]), shell=True)
-elif name.lower() == "core17":
-  print("Note implemented yet!"
-elif name.lower() == "core18":
-  print("Note implemented yet!"
-else:
-  print("Unknown collection: " + name)
+subprocess.check_call(
+    "extract_topics -i {0} -o {1}".format(args.json["topic"]["path"], name),
+    shell=True
+)
+subprocess.check_call(
+    choose_evaluate_command(name, k),
+    shell=True
+)

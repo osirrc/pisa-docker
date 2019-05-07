@@ -3,31 +3,77 @@
 import argparse
 import json
 import subprocess
+import sys
+
+
+def robust_parse_command(name, path):
+    return (("zcat "
+             "$(find {1} -type f -name '*.*z' "
+             "\( -path '*/disk4/fr94/[0-9]*/*' "
+             "-o -path '*/disk4/ft/ft*' "
+             "-o -path '*/disk5/fbis/fb*' "
+             "-o -path '*/disk5/latimes/la*' \))"
+             " | parse_collection -f trectext "
+             "-b 10000 --stemmer porter2 --content-parser html -o ./{0}.fwd")
+            .format(name, path))
+
+
+def nyt_parse_command(name, path):
+    return (("/root/miniconda3/bin/python /nyt-corpus-reader/read.py "
+             "<(find {1}/data -type f)"
+             " | parse_collection -f plaintext "
+             "-b 10000 --stemmer porter2 --content-parser html -o ./{0}.fwd")
+            .format(name, path))
+
+
+def wapo_parse_command(name, path):
+    return (("cat {1}/data/*"
+             " | parse_collection -f wapo "
+             "-b 10000 --stemmer porter2 --content-parser html -o ./{0}.fwd")
+            .format(name, path))
+
+
+def parse_command(name, path):
+    if name.lower() == "robust04":
+        return robust_parse_command(name, path)
+    elif name.lower() == "core17":
+        return nyt_parse_command(name, path)
+    elif name.lower() == "core18":
+        return wapo_parse_command(name, path)
+    else:
+        print("Unknown collection: " + name)
+        sys.exit(1)
+
+
+def lamb(name):
+    return 11
+
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--json", type=json.loads, required=True, help="the json input")
+parser.add_argument("--json", type=json.loads,
+                    required=True, help="the json input")
 
 args, _ = parser.parse_known_args()
 
 # Iterate over the [name]=[path] pairs
 for collection in args.json["collections"]:
     name, path = collection["name"], collection["path"]
-    if name.lower() == "robust04":
-        subprocess.check_call("zcat $(find {1} -type f  -name '*.*z' \( -path '*/disk4/fr94/[0-9]*/*' -o  -path '*/disk4/ft/ft*' -o -path '*/disk5/fbis/fb*' -o -path '*/disk5/latimes/la*' \)) | parse_collection -f trectext "
-                              "-b 10000 --stemmer porter2 --content-parser html -o ./{0}.fwd"
-                              .format(name, path), shell=True)
-        subprocess.check_call("invert -i {0}.fwd -o {0}.inv --term-count $(cat {0}.fwd.terms | wc -l)".format(name),
-                              shell=True)
-        subprocess.check_call("create_freq_index -t block_simdbp -c {0}.inv -o {0}.block_simdbp".format(name),
-                              shell=True)
-        l = 11
-        subprocess.check_call("create_wand_data -c {0}.inv -l "
-                              "{1} --variable-block -o {0}.vbmw"
-                              .format(name, l),
-                              shell=True)
-    elif name.lower() == "core17":
-        print("Not implemented yet!")
-	elif name.lower() == "core18":
-        print("Not implemented yet!")
-    else:
-	print("Unknown collection: " + name)
+    subprocess.check_call(parse_command(name, path),
+                          shell=True, executable='/bin/bash')
+    subprocess.check_call(("invert "
+                           "-i {0}.fwd "
+                           "-o {0}.inv "
+                           "--term-count $(cat {0}.fwd.terms | wc -l)")
+                          .format(name),
+                          shell=True)
+    subprocess.check_call(("create_freq_index "
+                           "-t block_simdbp "
+                           "-c {0}.inv "
+                           "-o {0}.block_simdbp").format(name),
+                          shell=True)
+    subprocess.check_call(("create_wand_data "
+                           "-c {0}.inv "
+                           "-l {1} "
+                           "--variable-block "
+                           "-o {0}.vbmw").format(name, lamb(name)),
+                          shell=True)
