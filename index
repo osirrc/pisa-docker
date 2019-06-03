@@ -66,13 +66,18 @@ for collection in args.json["collections"]:
                            "--term-count $(cat {0}.fwd.terms | wc -l)")
                           .format(name),
                           shell=True)
+    subprocess.check_call(("recursive_graph_bisection "
+                           "-i {0}.inv "
+                           "-o {0}.inv.bp "
+                           "-m 4096").format(name),
+                            shell=True)
     subprocess.check_call(("create_freq_index "
                            "-t block_simdbp "
-                           "-c {0}.inv "
+                           "-c {0}.inv.bp "
                            "-o {0}.block_simdbp").format(name),
                           shell=True)
     subprocess.check_call(("create_wand_data "
-                           "-c {0}.inv "
+                           "-c {0}.inv.bp "
                            "-l {1} "
                            "--variable-block "
                            "-o {0}.vbmw").format(name, lamb(name)),
