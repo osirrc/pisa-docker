@@ -44,9 +44,23 @@ def parse_command(name, path):
         print("Unknown collection: " + name)
         sys.exit(1)
 
-
+# Lambda is the VBMW block param.
+# Searched offline, these values will give a mean block size of ~40 elements/block
 def lamb(name):
-    return 11
+    if name.lower() == "robust04":
+        return 16.5
+    elif name.lower() == "core17":
+        return 15
+    elif name.lower() == "core18":
+        return 13.5
+    elif name.lower() == "gov2":
+        return 17
+    elif name.lower() == "cw09b":
+        return 21
+    else:
+        print("Unknown collection: " + name)
+        print("Using default lambda = 11)
+        return 11
 
 
 parser = argparse.ArgumentParser()
