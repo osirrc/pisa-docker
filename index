@@ -81,7 +81,7 @@ for collection in args.json["collections"]:
                           .format(name),
                           shell=True)
     subprocess.check_call(("recursive_graph_bisection "
-                           "-i {0}.inv "
+                           "-c {0}.inv "
                            "-o {0}.inv.bp "
                            "-m 4096").format(name),
                             shell=True)
