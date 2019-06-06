@@ -9,23 +9,18 @@ This is the docker image for the [PISA: Performant Indexes and Search for Academ
 + Supported test collections: `core17`, `core18`, `cw09b`, `cw12b`, `gov2`, `robust04`
 + Supported hooks: `init`, `index`, `search`
 
-## Running
-Use the commands below to run the image from the [jig](https://github.com/osirrc/jig) directory, updating the corpus details as appropriate.
+## Quick Start
 
-### Pull from DockerHub
-```
-docker pull pisa/pisa-osirrc2019
-```
+The following `jig` command can be used to index TREC disks 4/5 for `robust04`:
 
-### Prepare
 ```
 python run.py prepare 
   --repo pisa/pisa-osirrc2019 \
-  --tag latest \
   --collections Robust04=/data/collections/disk45
 ```
 
-### Search
+The following `jig` command can be used to perform a retrieval run on the collection with the `robust04` test collection.
+
 ```
 python run.py search \
   --repo pisa/pisa-osirrc2019 
@@ -34,3 +29,38 @@ python run.py search \
   --output $(pwd)/output  
   --qrels $(pwd)/qrels/qrels.robust2004.txt
 ```
+
+TODO: Add custom args..
+
+## Expected Results
+
+TODO: add expected AP, etc.
+
+## Implementation
+
+The following is a quick breakdown of what happens in each of the scripts in this repo.
+
+### Dockerfile
+
+The `Dockerfile` ...
+
+### init
+
+The `init` [script](init) is straightforward - it does ...
+
+### index
+
+The `index` [script](index) reads a JSON string (see [here](https://github.com/osirrc/jig#index)) containing at least one collection to index (including the name, path, and format).
+The collection is indexed and placed in a directory, with the same name as the collection, in the working dir (i.e., `/work/robust04`).
+At this point, `jig` takes a snapshot and the indexed collections are persisted for the `search` hook.
+
+### search
+
+The `search` [script](search) reads a JSON string (see [here](https://github.com/osirrc/jig#search)) containing the collection name (to map back to the index directory from the `index` hook) and topic path, among other options.
+The retrieval run is performed (using additional `--opts` params, see above) and output is placed in `/output` for the `jig` to evaluate using `trec_eval`.
+
+
+## Reviews
+
++ Documentation reviewed at commit [xxxxxxx](https://github.com/osirrc/pisa-docker/commit/xxxxx) (mm/dd/yyyy) by [foo](https://github.com/foo/)
+
