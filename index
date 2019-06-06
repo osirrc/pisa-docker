@@ -59,7 +59,7 @@ def lamb(name):
         return 21
     else:
         print("Unknown collection: " + name)
-        print("Using default lambda = 11)
+        print("Using default lambda = 11")
         return 11
 
 
