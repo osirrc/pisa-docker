@@ -1,11 +1,11 @@
 # Docker image in jig format for PISA
 
-[![Build Status](https://travis-ci.com/osirrc2019/pisa-docker.svg?branch=master)](https://travis-ci.com/osirrc2019/pisa-docker)
+[![Build Status](https://travis-ci.com/osirrc/pisa-docker.svg?branch=master)](https://travis-ci.com/osirrc/pisa-docker)
 
 PISA Docker image for the SIGIR OSIRRC 2019 Open Source Challenge.
 
 ## Running
-Use the commands below to run the image from the [jig](https://github.com/osirrc2019/jig) directory, updating the corpus details as appropriate.
+Use the commands below to run the image from the [jig](https://github.com/osirrc/jig) directory, updating the corpus details as appropriate.
 
 ### Pull from DockerHub
 ```
