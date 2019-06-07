@@ -37,9 +37,9 @@ TODO: Add custom args..
 
 ### core17
 
-MAP                                     | BM25      |
-:---------------------------------------|-----------|
-[TREC 2017 Common Core Track Topics](https://trec.nist.gov/data/core/core_nist.txt)| 0    |
+BM25                                    | MAP       | P@30      |
+:---------------------------------------|-----------|-----------|
+[TREC 2017 Common Core Track Topics](https://trec.nist.gov/data/core/core_nist.txt)| 0.2078 | 0.4260 |
 
 ### core18
 
