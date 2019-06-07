@@ -72,9 +72,9 @@ MAP                                     | BM25      |
 
 ### robust04
 
-MAP                                     | BM25      | 
-:---------------------------------------|-----------|
-[TREC 2004 Robust Track Topics](http://trec.nist.gov/data/robust/04.testset.gz)| 0    |
+BM25                                    | MAP       | P@30      | 
+:---------------------------------------|-----------|-----------|
+[TREC 2004 Robust Track Topics](http://trec.nist.gov/data/robust/04.testset.gz)| 0.2537    | 0.3120    |
 
 ## Implementation
 
