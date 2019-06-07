@@ -25,9 +25,9 @@ The following `jig` command can be used to perform a retrieval run on the collec
 python run.py search \
   --repo pisa/pisa-osirrc2019 
   --collection Robust04 
-  --topic topics.robust04.301-450.601-700.txt 
+  --topic topics/topics.robust04.txt
   --output $(pwd)/output  
-  --qrels $(pwd)/qrels/qrels.robust2004.txt
+  --qrels $(pwd)/qrels/qrels.robust04.txt
 ```
 
 TODO: Add custom args..
