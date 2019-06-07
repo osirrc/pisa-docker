@@ -37,15 +37,15 @@ TODO: Add custom args..
 
 ### core17
 
-BM25                                    | MAP       | P@30      |
-:---------------------------------------|-----------|-----------|
-[TREC 2017 Common Core Track Topics](https://trec.nist.gov/data/core/core_nist.txt)| 0.2078 | 0.4260 |
+BM25                                    | MAP       | P@30      | NDCG@20 |
+:---------------------------------------|-----------|-----------|---------|
+[TREC 2017 Common Core Track Topics](https://trec.nist.gov/data/core/core_nist.txt)| 0.2078 | 0.4260 | 0.3898 |
 
 ### core18
 
-BM25                                    | MAP       | P@30      |
-:---------------------------------------|-----------|-----------|
-[TREC 2018 Common Core Track Topics](https://trec.nist.gov/data/core/topics2018.txt)| 0.2384 | 0.3500 |
+BM25                                    | MAP       | P@30      | NDCG@20 |
+:---------------------------------------|-----------|-----------|---------|
+[TREC 2018 Common Core Track Topics](https://trec.nist.gov/data/core/topics2018.txt)| 0.2384 | 0.3500 |  |
 
 ### cw09b
 
@@ -72,9 +72,9 @@ MAP                                     | BM25      |
 
 ### robust04
 
-BM25                                    | MAP       | P@30      | 
-:---------------------------------------|-----------|-----------|
-[TREC 2004 Robust Track Topics](http://trec.nist.gov/data/robust/04.testset.gz)| 0.2537    | 0.3120    |
+BM25                                    | MAP       | P@30      | NDCG@20 |
+:---------------------------------------|-----------|-----------|---------|
+[TREC 2004 Robust Track Topics](http://trec.nist.gov/data/robust/04.testset.gz)| 0.2537    | 0.3120    | |
 
 ## Implementation
 
