@@ -43,9 +43,9 @@ MAP                                     | BM25      |
 
 ### core18
 
-MAP                                     | BM25      | 
-:---------------------------------------|-----------|
-[TREC 2018 Common Core Track Topics](https://trec.nist.gov/data/core/topics2018.txt)| 0    |
+BM25                                    | MAP       | P@30      |
+:---------------------------------------|-----------|-----------|
+[TREC 2018 Common Core Track Topics](https://trec.nist.gov/data/core/topics2018.txt)| 0.2384 | 0.3500 |
 
 ### cw09b
 
