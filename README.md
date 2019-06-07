@@ -23,10 +23,10 @@ The following `jig` command can be used to perform a retrieval run on the collec
 
 ```
 python run.py search \
-  --repo pisa/pisa-osirrc2019 
-  --collection Robust04 
-  --topic topics/topics.robust04.txt
-  --output $(pwd)/output  
+  --repo pisa/pisa-osirrc2019  \
+  --collection Robust04 \
+  --topic topics/topics.robust04.txt \
+  --output $(pwd)/output \
   --qrels $(pwd)/qrels/qrels.robust04.txt
 ```
 
