@@ -34,7 +34,47 @@ TODO: Add custom args..
 
 ## Expected Results
 
-TODO: add expected AP, etc.
+
+### core17
+
+MAP                                     | BM25      |
+:---------------------------------------|-----------|
+[TREC 2017 Common Core Track Topics](https://trec.nist.gov/data/core/core_nist.txt)| 0    |
+
+### core18
+
+MAP                                     | BM25      | 
+:---------------------------------------|-----------|
+[TREC 2018 Common Core Track Topics](https://trec.nist.gov/data/core/topics2018.txt)| 0    |
+
+### cw09b
+
+MAP                                     | BM25      |
+:---------------------------------------|-----------|
+[TREC 2010 Web Track: Topics 51-100](http://trec.nist.gov/data/web/10/wt2010-topics.xml)| 0    | 
+[TREC 2011 Web Track: Topics 101-150](http://trec.nist.gov/data/web/11/full-topics.xml)| 0    | 
+[TREC 2012 Web Track: Topics 151-200](http://trec.nist.gov/data/web/12/full-topics.xml)| 0    | 
+
+### cw12b
+
+MAP                                     | BM25      | 
+:---------------------------------------|-----------|
+[TREC 2013 Web Track: Topics 201-250](http://trec.nist.gov/data/web2013.html)| 0    | 
+[TREC 2014 Web Track: Topics 251-300](http://trec.nist.gov/data/web2014.html)| 0    |
+
+### gov2
+
+MAP                                     | BM25      |
+:---------------------------------------|-----------|
+[TREC 2004 Terabyte Track: Topics 701-750](http://trec.nist.gov/data/terabyte04.html)| 0    | 
+[TREC 2005 Terabyte Track: Topics 751-800](http://trec.nist.gov/data/terabyte05.html)| 0    | 
+[TREC 2006 Terabyte Track: Topics 801-850](http://trec.nist.gov/data/terabyte06.html)| 0    | 
+
+### robust04
+
+MAP                                     | BM25      | 
+:---------------------------------------|-----------|
+[TREC 2004 Robust Track Topics](http://trec.nist.gov/data/robust/04.testset.gz)| 0    |
 
 ## Implementation
 
