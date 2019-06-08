@@ -32,6 +32,14 @@ def wapo_parse_command(name, path):
              "-b 10000 --stemmer porter2 --content-parser html -o ./{0}.fwd")
             .format(name, path))
 
+def cw09_parse_command(name, path):
+    return ""
+
+def cw12_parse_command(name, path):
+    return ""
+
+def gov2_parse_command(name, path):
+    return ""
 
 def parse_command(name, path):
     if name.lower() == "robust04":
@@ -40,6 +48,13 @@ def parse_command(name, path):
         return nyt_parse_command(name, path)
     elif name.lower() == "core18":
         return wapo_parse_command(name, path)
+    elif name.lower() == "clueweb09":
+        return cw09_parse_command(name, path)
+    elif name.lower() == "clueweb12":
+        return cw12_parse_command(name, path)
+    elif name.lower() == "gov2":
+        return gov2_parse_command(name, path)
+
     else:
         print("Unknown collection: " + name)
         sys.exit(1)
