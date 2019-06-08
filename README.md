@@ -87,7 +87,7 @@ The `Dockerfile` ...
 
 ### init
 
-The `init` [script](init) is straightforward - it does ...
+The `init` [script](init) is empty since all the initialization is executed during Docker image building. 
 
 ### index
 
