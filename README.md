@@ -83,7 +83,8 @@ The following is a quick breakdown of what happens in each of the scripts in thi
 
 ### Dockerfile
 
-The `Dockerfile` ...
+The `Dockerfile` derives from the official [PISA docker image](https://github.com/pisa-engine/docker). Additionally, it installs dependencies (python3, etc.), copies scripts to the root dir, and sets the working dir to /work.
+
 
 ### init
 
