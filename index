@@ -54,7 +54,6 @@ def parse_command(name, path):
         return cw12_parse_command(name, path)
     elif name.lower() == "gov2":
         return gov2_parse_command(name, path)
-
     else:
         print("Unknown collection: " + name)
         sys.exit(1)
