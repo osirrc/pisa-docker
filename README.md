@@ -1,6 +1,7 @@
 # PISA OSIRRC Docker Image v0.0.1
 
 [![Build Status](https://travis-ci.com/osirrc/pisa-docker.svg?branch=master)](https://travis-ci.com/osirrc/pisa-docker)
+[![DOI](https://zenodo.org/badge/179735565.svg)](https://zenodo.org/badge/latestdoi/179735565)
 
 [Antonio Mallia](https://github.com/amallia), [Michał Siedlaczek](https://github.com/elshize), [Joel Mackenzie](https://github.com/JMMackenzie), [Torsten Suel](https://github.com/torstensuel)
 
