@@ -33,6 +33,19 @@ python run.py search \
 
 TODO: Add custom args..
 
+## Supported collections
+
+For indexing, the corpus name defines the indexing configuration. The following values are supported:
+
+- core17 - the New York Times corpus. 
+- core18 - the TREC Washington Post (WAPO) corpus. 
+- robust04 - TREC Disks 4&5. 
+- gov2 - the TREC GOV2 corpus.
+- cw09b - the TREC ClueWeb09 corpus.
+- cw12b - the TREC ClueWeb12 corpus.
+
+
+
 ## Expected Results
 
 
@@ -50,23 +63,23 @@ BM25                                    | MAP       | P@30      | NDCG@20 |
 
 ### cw09b
 
-MAP                                     | BM25      |
-:---------------------------------------|-----------|
+BM25                                     | MAP       | P@30      | NDCG@20 |
+:---------------------------------------|-----------|-----------|---------|
 [TREC 2010 Web Track: Topics 51-100](http://trec.nist.gov/data/web/10/wt2010-topics.xml)| 0    | 
 [TREC 2011 Web Track: Topics 101-150](http://trec.nist.gov/data/web/11/full-topics.xml)| 0    | 
 [TREC 2012 Web Track: Topics 151-200](http://trec.nist.gov/data/web/12/full-topics.xml)| 0    | 
 
 ### cw12b
 
-MAP                                     | BM25      | 
-:---------------------------------------|-----------|
+BM25                                     | MAP       | P@30      | NDCG@20 |
+:---------------------------------------|-----------|-----------|---------|
 [TREC 2013 Web Track: Topics 201-250](http://trec.nist.gov/data/web2013.html)| 0    | 
 [TREC 2014 Web Track: Topics 251-300](http://trec.nist.gov/data/web2014.html)| 0    |
 
 ### gov2
 
-MAP                                     | BM25      |
-:---------------------------------------|-----------|
+BM25                                     |  MAP       | P@30      | NDCG@20 |
+:---------------------------------------|------------|-----------|---------|
 [TREC 2004 Terabyte Track: Topics 701-750](http://trec.nist.gov/data/terabyte04.html)| 0    | 
 [TREC 2005 Terabyte Track: Topics 751-800](http://trec.nist.gov/data/terabyte05.html)| 0    | 
 [TREC 2006 Terabyte Track: Topics 801-850](http://trec.nist.gov/data/terabyte06.html)| 0    | 
