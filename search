@@ -26,12 +26,48 @@ def choose_evaluate_command(name, k):
     """For now, all execute the same way."""
     return evaluate_command(name, k)
 
+# Allow user to input stemmer, validate
+def get_stemmer(options):
+    valid = ["porter2", "krovetz"]
+    stemmer = "porter2"
+    if "stemmer" in options and options["stemmer"].lower() in valid:
+        stemmer = options["stemmer"].lower()
+    else:
+        print("Using default stemmer: " + stemmer)
+    return stemmer
+
+# Allow user to input compression type
+def get_compressor(options):
+    valid = ["ef", "single", "uniform", "opt", "block_optpfor", "block_varintg8iu",
+             "block_streamvbyte", "block_maskedvbyte", "block_interpolative", "block_qmx", 
+             "block_varintgb", "block_simple8b", "block_simple16", "block_simdbp", "block_mixed"]
+    compressor = "block_simdbp"
+    if "compressor" in options and options["compressor"].lower() in valid:
+        compressor = options["compressor"].lower()
+    else:
+        print("Using default compressor: " + compressor)
+    return compressor
+
+# Allow user to input algorithm
+def get_algo(options):
+    valid = ["maxscore", "wand", "block_max_wand"]
+    algo = "maxscore"
+    if "algorithm" in options and options["algorithm"].lower() in valid:
+        algo = options["algorithm"].lower()
+    else:
+      print("Using default algorithm: " + algo)
+    return algo
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--json", type=json.loads, required=True,
                     help="the json input")
 args, _ = parser.parse_known_args()
 name, k = args.json["collection"]["name"], args.json["top_k"]
+
+compressor = get_compressor(args.json["opts"])
+stemmer = get_stemmer(args.json["opts"])
+algo = get_algo(args.json["opts"])
 
 subprocess.check_call(
     "extract_topics -i {0} -o {1}".format(args.json["topic"]["path"], name),
