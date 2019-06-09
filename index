@@ -48,9 +48,9 @@ def parse_command(name, path, stemmer):
         return nyt_parse_command(name, path, stemmer)
     elif name.lower() == "core18":
         return wapo_parse_command(name, path, stemmer)
-    elif name.lower() == "clueweb09":
+    elif name.lower() == "cw09b":
         return cw09_parse_command(name, path, stemmer)
-    elif name.lower() == "clueweb12":
+    elif name.lower() == "cwb12b":
         return cw12_parse_command(name, path, stemmer)
     elif name.lower() == "gov2":
         return gov2_parse_command(name, path, stemmer)
