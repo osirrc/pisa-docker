@@ -39,7 +39,11 @@ def cw12_parse_command(name, path):
     return ""
 
 def gov2_parse_command(name, path):
-    return ""
+    return (("zcat "
+             "$(find {1} -type f -name '*.gz')"
+             " | parse_collection -f trectext "
+             "-b 10000 --stemmer {2} --content-parser html -o ./{0}.fwd")
+            .format(name, path, stemmer))
 
 def parse_command(name, path, stemmer):
     if name.lower() == "robust04":
