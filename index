@@ -144,7 +144,7 @@ for collection in args.json["collections"]:
     subprocess.check_call(("create_freq_index "
                            "-t {1} "
                            "-c {0}.inv.bp "
-                           "-o {0}.block_simdbp").format(name, compressor),
+                           "-o {0}.{1}").format(name, compressor),
                           shell=True)
     subprocess.check_call(("create_wand_data "
                            "-c {0}.inv.bp "
