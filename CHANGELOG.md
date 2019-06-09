@@ -1,0 +1,58 @@
+### Version 0.0.0
+- first commit
+- Added initial structure
+- Updated readme
+- Update index
+- Update index
+- Update search
+- Update index
+- Update search
+- Create Makefile
+- Create .travis.yml
+- Update README.md
+- Make it work with Robust04
+- Update search
+- converted to unix
+- Update search
+- Update search
+- Update search
+- Update index
+- Update README.md
+- Update search
+- Update search
+- Update for latest jig breaking changes
+- Update search
+- Update README.md
+- Update search
+- Update index
+- Update index
+- Update index
+- Adapt to lexicon
+- Update index
+- Update index
+- Update index
+- Update index
+- Update index
+- Update search
+- Support WaPo and NYT (#8)
+- Add index reordering via recursive graph bisection
+- Add lambda values
+- Update index
+- Update README.md
+- Update index
+- Update README.md
+- Update README.md
+- Update README.md
+- Fix queries file
+- Output reordered docid file
+- Use reordered doclex
+- Update README.md
+- Update README.md
+- Update setup.sh
+- Update README.md
+- Update README.md
+- Update README.md
+- Update README.md
+- Update README.md
+- Create bump.json
+- Create .gitignore

@@ -1,0 +1,19 @@
+{
+  "files": {
+    "README.md": [
+      ["^# PISA OSIRRC Docker Image ?v?(.*)", "# PISA OSIRRC Docker Image v[version]"]
+    ]
+  },
+  "tag": {
+    "enabled": false
+  },
+  "release": {
+    "enabled": true,
+    "github": {
+      "enabled": true,
+      "open": false,
+      "draft": false,
+      "prerelease": false
+    }
+  }
+}

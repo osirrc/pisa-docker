@@ -1,6 +1,7 @@
-# PISA OSIRRC Docker Image
+# PISA OSIRRC Docker Image v0.0.1
 
 [![Build Status](https://travis-ci.com/osirrc/pisa-docker.svg?branch=master)](https://travis-ci.com/osirrc/pisa-docker)
+[![DOI](https://zenodo.org/badge/179735565.svg)](https://zenodo.org/badge/latestdoi/179735565)
 
 [Antonio Mallia](https://github.com/amallia), [Michał Siedlaczek](https://github.com/elshize), [Joel Mackenzie](https://github.com/JMMackenzie), [Torsten Suel](https://github.com/torstensuel)
 
@@ -23,18 +24,71 @@ The following `jig` command can be used to perform a retrieval run on the collec
 
 ```
 python run.py search \
-  --repo pisa/pisa-osirrc2019 
-  --collection Robust04 
-  --topic topics/topics.robust04.txt
-  --output $(pwd)/output  
+  --repo pisa/pisa-osirrc2019  \
+  --collection Robust04 \
+  --topic topics/topics.robust04.txt \
+  --output $(pwd)/output \
   --qrels $(pwd)/qrels/qrels.robust04.txt
 ```
 
 TODO: Add custom args..
 
+## Supported collections
+
+For indexing, the corpus name defines the indexing configuration. The following values are supported:
+
+- core17 - the New York Times corpus. 
+- core18 - the TREC Washington Post (WAPO) corpus. 
+- robust04 - TREC Disks 4&5. 
+- gov2 - the TREC GOV2 corpus.
+- cw09b - the TREC ClueWeb09 corpus.
+- cw12b - the TREC ClueWeb12 corpus.
+
+
+
 ## Expected Results
 
-TODO: add expected AP, etc.
+
+### core17
+
+BM25                                    | MAP       | P@30      | NDCG@20 |
+:---------------------------------------|-----------|-----------|---------|
+[TREC 2017 Common Core Track Topics](https://trec.nist.gov/data/core/core_nist.txt)| 0.2078 | 0.4260 | 0.3898 |
+
+### core18
+
+BM25                                    | MAP       | P@30      | NDCG@20 |
+:---------------------------------------|-----------|-----------|---------|
+[TREC 2018 Common Core Track Topics](https://trec.nist.gov/data/core/topics2018.txt)| 0.2384 | 0.3500 |  |
+
+### cw09b
+
+BM25                                     | MAP       | P@30      | NDCG@20 |
+:---------------------------------------|-----------|-----------|---------|
+[TREC 2010 Web Track: Topics 51-100](http://trec.nist.gov/data/web/10/wt2010-topics.xml)| 0    | 
+[TREC 2011 Web Track: Topics 101-150](http://trec.nist.gov/data/web/11/full-topics.xml)| 0    | 
+[TREC 2012 Web Track: Topics 151-200](http://trec.nist.gov/data/web/12/full-topics.xml)| 0    | 
+
+### cw12b
+
+BM25                                     | MAP       | P@30      | NDCG@20 |
+:---------------------------------------|-----------|-----------|---------|
+[TREC 2013 Web Track: Topics 201-250](http://trec.nist.gov/data/web2013.html)| 0    | 
+[TREC 2014 Web Track: Topics 251-300](http://trec.nist.gov/data/web2014.html)| 0    |
+
+### gov2
+
+BM25                                     |  MAP       | P@30      | NDCG@20 |
+:---------------------------------------|------------|-----------|---------|
+[TREC 2004 Terabyte Track: Topics 701-750](http://trec.nist.gov/data/terabyte04.html)| 0    | 
+[TREC 2005 Terabyte Track: Topics 751-800](http://trec.nist.gov/data/terabyte05.html)| 0    | 
+[TREC 2006 Terabyte Track: Topics 801-850](http://trec.nist.gov/data/terabyte06.html)| 0    | 
+
+### robust04
+
+BM25                                    | MAP       | P@30      | NDCG@20 |
+:---------------------------------------|-----------|-----------|---------|
+[TREC 2004 Robust Track Topics](http://trec.nist.gov/data/robust/04.testset.gz)| 0.2537    | 0.3120    | |
 
 ## Implementation
 
@@ -42,11 +96,12 @@ The following is a quick breakdown of what happens in each of the scripts in thi
 
 ### Dockerfile
 
-The `Dockerfile` ...
+The `Dockerfile` derives from the official [PISA docker image](https://github.com/pisa-engine/docker). Additionally, it installs dependencies (python3, etc.), copies scripts to the root dir, and sets the working dir to /work.
+
 
 ### init
 
-The `init` [script](init) is straightforward - it does ...
+The `init` [script](init) is empty since all the initialization is executed during Docker image building. 
 
 ### index
 
