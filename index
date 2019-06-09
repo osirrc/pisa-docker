@@ -32,21 +32,21 @@ def wapo_parse_command(name, path, stemmer):
              "-b 10000 --stemmer {2} --content-parser html -o ./{0}.fwd")
             .format(name, path, stemmer))
 
-def cw09_parse_command(name, path):
+def cw09_parse_command(name, path, stemmer):
     return (("zcat "
              "$(find {1} -type f -name '*.gz')"
              " | parse_collection -f warc "
              "-b 10000 --stemmer {2} --content-parser html -o ./{0}.fwd")
             .format(name, path, stemmer))
 
-def cw12_parse_command(name, path):
+def cw12_parse_command(name, path, stemmer):
     return (("zcat "
              "$(find {1} -type f -name '*.gz')"
              " | parse_collection -f warc "
              "-b 10000 --stemmer {2} --content-parser html -o ./{0}.fwd")
             .format(name, path, stemmer))
 
-def gov2_parse_command(name, path):
+def gov2_parse_command(name, path, stemmer):
     return (("zcat "
              "$(find {1} -type f -name '*.gz')"
              " | parse_collection -f trectext "
@@ -126,7 +126,7 @@ compressor = get_compressor(args.json["opts"])
 # Iterate over the [name]=[path] pairs
 for collection in args.json["collections"]:
     name, path = collection["name"], collection["path"]
-    subprocess.check_call(parse_command(name, path),
+    subprocess.check_call(parse_command(name, path, stemmer),
                           shell=True, executable='/bin/bash')
     subprocess.check_call(("invert "
                            "-i {0}.fwd "
