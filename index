@@ -50,7 +50,7 @@ def parse_command(name, path, stemmer):
         return wapo_parse_command(name, path, stemmer)
     elif name.lower() == "cw09b":
         return cw09_parse_command(name, path, stemmer)
-    elif name.lower() == "cwb12b":
+    elif name.lower() == "cw12b":
         return cw12_parse_command(name, path, stemmer)
     elif name.lower() == "gov2":
         return gov2_parse_command(name, path, stemmer)
