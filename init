@@ -4,4 +4,4 @@ git clone https://github.com/pisa-engine/pisa.git
 cd pisa && mkdir build && cd build
 cmake ..
 make -j2
-export PATH="/work/pisa/build/bin/:${PATH}"
+cp bin/* /usr/local/bin/
