@@ -7,4 +7,4 @@ curl https://cmake.org/files/v3.14/cmake-3.14.1-Linux-x86_64.sh -o /tmp/curl-ins
       && chmod u+x /tmp/curl-install.sh \
       && mkdir /usr/bin/cmake \
       && /tmp/curl-install.sh --skip-license --prefix=/usr/bin/cmake \
-      && rm /tmp/curl-install.sh && export PATH="/usr/bin/cmake/bin:${PATH}"
+      && rm /tmp/curl-install.sh
