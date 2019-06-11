@@ -32,14 +32,26 @@ def wapo_parse_command(name, path, stemmer):
              "-b 10000 --stemmer {2} --content-parser html -o ./{0}.fwd")
             .format(name, path, stemmer))
 
-def cw09_parse_command(name, path):
-    return ""
+def cw09_parse_command(name, path, stemmer):
+    return (("zcat "
+             "$(find {1} -type f -name '*.gz')"
+             " | parse_collection -f warc "
+             "-b 10000 --stemmer {2} --content-parser html -o ./{0}.fwd")
+            .format(name, path, stemmer))
 
-def cw12_parse_command(name, path):
-    return ""
+def cw12_parse_command(name, path, stemmer):
+    return (("zcat "
+             "$(find {1} -type f -name '*.gz')"
+             " | parse_collection -f warc "
+             "-b 10000 --stemmer {2} --content-parser html -o ./{0}.fwd")
+            .format(name, path, stemmer))
 
-def gov2_parse_command(name, path):
-    return ""
+def gov2_parse_command(name, path, stemmer):
+    return (("zcat "
+             "$(find {1} -type f -name '*.gz')"
+             " | parse_collection -f trecweb "
+             "-b 10000 --stemmer {2} --content-parser html -o ./{0}.fwd")
+            .format(name, path, stemmer))
 
 def parse_command(name, path, stemmer):
     if name.lower() == "robust04":
@@ -114,7 +126,7 @@ compressor = get_compressor(args.json["opts"])
 # Iterate over the [name]=[path] pairs
 for collection in args.json["collections"]:
     name, path = collection["name"], collection["path"]
-    subprocess.check_call(parse_command(name, path),
+    subprocess.check_call(parse_command(name, path, stemmer),
                           shell=True, executable='/bin/bash')
     subprocess.check_call(("invert "
                            "-i {0}.fwd "
@@ -132,7 +144,7 @@ for collection in args.json["collections"]:
     subprocess.check_call(("create_freq_index "
                            "-t {1} "
                            "-c {0}.inv.bp "
-                           "-o {0}.block_simdbp").format(name, compressor),
+                           "-o {0}.{1}").format(name, compressor),
                           shell=True)
     subprocess.check_call(("create_wand_data "
                            "-c {0}.inv.bp "
