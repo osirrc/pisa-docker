@@ -4,6 +4,8 @@ import argparse
 import json
 import subprocess
 import sys
+import time
+from datetime import timedelta
 
 
 def robust_parse_command(name, path, stemmer):
@@ -126,14 +128,22 @@ compressor = get_compressor(args.json["opts"])
 # Iterate over the [name]=[path] pairs
 for collection in args.json["collections"]:
     name, path = collection["name"], collection["path"]
+
+    start_time = time.time()
     subprocess.check_call(parse_command(name, path, stemmer),
                           shell=True, executable='/bin/bash')
+    parse_duration = timedelta(seconds=time.time() - start_time)
+    print("--- Parsing took {} ---".format(parse_duration))
+    start_time = time.time()
     subprocess.check_call(("invert "
                            "-i {0}.fwd "
                            "-o {0}.inv "
                            "--term-count $(cat {0}.fwd.terms | wc -l)")
                           .format(name),
                           shell=True)
+    invert_duration = timedelta(seconds=time.time() - start_time)
+    print("--- Inverting took {} ---".format(invert_duration))
+    start_time = time.time()
     subprocess.check_call(("recursive_graph_bisection "
                            "-c {0}.inv "
                            "-o {0}.inv.bp "
@@ -141,14 +151,31 @@ for collection in args.json["collections"]:
                            "--reordered-documents {0}.fwd.bp.doclex "
                            "-m 4096").format(name),
                             shell=True)
+    bp_duration = timedelta(seconds=time.time() - start_time)
+    print("--- Reordering took {} ---".format(bp_duration))
+    start_time = time.time()
     subprocess.check_call(("create_freq_index "
                            "-t {1} "
                            "-c {0}.inv.bp "
                            "-o {0}.{1}").format(name, compressor),
                           shell=True)
+    compress_duration = timedelta(seconds=time.time() - start_time)
+    print("--- Compressing took {} ---".format(compress_duration))
+    start_time = time.time()
     subprocess.check_call(("create_wand_data "
                            "-c {0}.inv.bp "
                            "-l {1} "
                            "--variable-block "
                            "-o {0}.vbmw").format(name, lamb(name)),
                           shell=True)
+    wand_duration = timedelta(seconds=time.time() - start_time)
+    print("--- Extracting block data took {} ---".format(wand_duration))
+    print("=== Summary ===")
+    print("Parse:\t{}".format(parse_duration))
+    print("Invert:\t{}".format(invert_duration))
+    print("Reorder:\t{}".format(bp_duration))
+    print("Compress:\t{}".format(compress_duration))
+    print("Block data:\t{}".format(wand_duration))
+    print("===============")
+    print("Total:\t{}".format(
+        parse_duration + invert_duration + bp_duration + compress_duration + wand_duration))
