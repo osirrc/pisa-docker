@@ -1,1 +1,7 @@
 #!/usr/bin/env bash
+
+git clone https://github.com/pisa-engine/pisa.git
+cd pisa && mkdir build && cd build
+cmake ..
+make -j2
+cp bin/* /usr/local/bin/

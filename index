@@ -4,6 +4,8 @@ import argparse
 import json
 import subprocess
 import sys
+import time
+from datetime import timedelta
 
 def robust_parse_command(name, path, stemmer):
     return (("zcat "
@@ -164,14 +166,22 @@ wand_type, block_size = get_block_type(options)
 # Iterate over the [name]=[path] pairs
 for collection in args.json["collections"]:
     name, path = collection["name"], collection["path"]
+
+    start_time = time.time()
     subprocess.check_call(parse_command(name, path, stemmer),
                           shell=True, executable='/bin/bash')
+    parse_duration = timedelta(seconds=time.time() - start_time)
+    print("--- Parsing took {} ---".format(parse_duration))
+    start_time = time.time()
     subprocess.check_call(("invert "
                            "-i {0}.fwd "
                            "-o {0}.inv "
                            "--term-count $(cat {0}.fwd.terms | wc -l)")
                           .format(name),
                           shell=True)
+    invert_duration = timedelta(seconds=time.time() - start_time)
+    print("--- Inverting took {} ---".format(invert_duration))
+    start_time = time.time()
     subprocess.check_call(("recursive_graph_bisection "
                            "-c {0}.inv "
                            "-o {0}.inv.bp "
@@ -179,6 +189,9 @@ for collection in args.json["collections"]:
                            "--reordered-documents {0}.fwd.bp.doclex "
                            "-m 4096").format(name),
                             shell=True)
+    bp_duration = timedelta(seconds=time.time() - start_time)
+    print("--- Reordering took {} ---".format(bp_duration))
+    start_time = time.time()
     # Generate an index for each provided coded
     for compressor in compressor_list:
         subprocess.check_call(("create_freq_index "
@@ -186,7 +199,19 @@ for collection in args.json["collections"]:
                                "-c {0}.inv.bp "
                                "-o {0}.{1}").format(name, compressor),
                               shell=True)
+    compress_duration = timedelta(seconds=time.time() - start_time)
+    print("--- Compressing took {} ---".format(compress_duration))
+    start_time = time.time()
     subprocess.check_call(wand_command(name, wand_type, block_size),
                           shell=True)
-
-
+    wand_duration = timedelta(seconds=time.time() - start_time)
+    print("--- Extracting block data took {} ---".format(wand_duration))
+    print("=== Summary ===")
+    print("Parse:\t{}".format(parse_duration))
+    print("Invert:\t{}".format(invert_duration))
+    print("Reorder:\t{}".format(bp_duration))
+    print("Compress:\t{}".format(compress_duration))
+    print("Block data:\t{}".format(wand_duration))
+    print("===============")
+    print("Total:\t{}".format(
+        parse_duration + invert_duration + bp_duration + compress_duration + wand_duration))
