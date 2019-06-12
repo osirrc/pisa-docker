@@ -6,7 +6,7 @@ import subprocess
 print("Searching...")
 
 
-def evaluate_command(name, k, *,
+def evaluate_command(name, k,
                      algorithm="block_max_wand", index_type="block_simdbp",
                      wand_type="vbmw", stemmer="porter2"):
     return ("evaluate_queries "
