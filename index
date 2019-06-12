@@ -5,7 +5,6 @@ import json
 import subprocess
 import sys
 
-
 def robust_parse_command(name, path, stemmer):
     return (("zcat "
              "$(find {1} -type f -name '*.*z' "
@@ -17,14 +16,12 @@ def robust_parse_command(name, path, stemmer):
              "-b 10000 --stemmer {2} --content-parser html -o ./{0}.fwd")
             .format(name, path, stemmer))
 
-
 def nyt_parse_command(name, path, stemmer):
     return (("/root/miniconda3/bin/python /nyt-corpus-reader/read.py "
              "<(find {1}/data -type f)"
              " | parse_collection -f plaintext "
              "-b 10000 --stemmer {2} --content-parser html -o ./{0}.fwd")
             .format(name, path, stemmer))
-
 
 def wapo_parse_command(name, path, stemmer):
     return (("cat {1}/data/*"
@@ -98,18 +95,59 @@ def get_stemmer(options):
         print("Using default stemmer: " + stemmer)
     return stemmer
 
+# Allow user to input many compressions approaches at once
+def get_compressor_list(options):
+    valid = ["opt", "block_interpolative", "block_simdbp", "block_optpfor", 
+             "block_varintg8iu"] 
+    if "compressor" in options:
+        compressors = options["compressor"].lower()
+        compressor_list = compressors.split(",")
+        for comp in compressor_list:
+            if not comp in valid:
+                print("Invalid compressor: " + comp)
+                sys.exit(1)
+        print("Found list of compressors: " + str(compressor_list))
+        return compressor_list
+    return ["block_simdbp"]
 
-# Allow user to input compression, validate
-def get_compressor(options):
-    valid = ["ef", "single", "uniform", "opt", "block_optpfor", "block_varintg8iu",
-             "block_streamvbyte", "block_maskedvbyte", "block_interpolative", "block_qmx", 
-             "block_varintgb", "block_simple8b", "block_simple16", "block_simdbp", "block_mixed"]
-    compressor = "block_simdbp"
-    if "compressor" in options and options["compressor"].lower() in valid:
-        compressor = options["compressor"].lower()
+# Allow user to select static blocks, validate
+def get_block_type(options):
+    valid = ["fixed", "variable"]
+    block_type = "variable"
+    block_size = 0
+    if "block_type" in options and options["block_type"].lower() in valid:
+        block_type = options["block_type"].lower()
+    # Ensure block size is passed in
+    if block_type == "fixed" and "block_size" in options:
+        try:
+            block_size = int(options["block_size"])
+        except ValueError:
+            print "Block size must be an integer."
+            sys.exit(1)
+    if block_size < 0:
+        print "Block size must be a positive integer"
+        sys.exit(1)
+    return block_type, block_size
+
+# Decides which method to use for generating the wand data
+def wand_command(name, wand_type, block_size):
+    if wand_type == "variable":
+        print ("Making variable-block wand data, lambda = " + lamb(name))
+        return (("create_wand_data "
+                           "-c {0}.inv.bp "
+                           "-l {1} "
+                           "--variable-block "
+                           "-o {0}.vbmw").format(name, lamb(name))) 
+
+    elif wand_type == "fixed":
+        print ("Making fixed-block wand data, block size = " + block_size)
+        return (("create_wand_data "
+                           "-c {0}.inv.bp "
+                           "-b {1} "
+                           "-o {0}.bmw").format(name, block_size))
     else:
-        print("Using default compressor: " + compressor)
-    return compressor
+      print("Invalid wand type. Should be 'fixed' or 'variable'")
+      sys.exit(1)
 
 
 parser = argparse.ArgumentParser()
@@ -118,10 +156,10 @@ parser.add_argument("--json", type=json.loads,
 
 args, _ = parser.parse_known_args()
 
-
-
-stemmer = get_stemmer(args.json["opts"])
-compressor = get_compressor(args.json["opts"])
+options = args.json["opts"]
+stemmer = get_stemmer(options)
+compressor_list = get_compressor_list(options)
+wand_type, block_size = get_block_type(options)
 
 # Iterate over the [name]=[path] pairs
 for collection in args.json["collections"]:
@@ -141,14 +179,14 @@ for collection in args.json["collections"]:
                            "--reordered-documents {0}.fwd.bp.doclex "
                            "-m 4096").format(name),
                             shell=True)
-    subprocess.check_call(("create_freq_index "
-                           "-t {1} "
-                           "-c {0}.inv.bp "
-                           "-o {0}.{1}").format(name, compressor),
+    # Generate an index for each provided coded
+    for compressor in compressor_list:
+        subprocess.check_call(("create_freq_index "
+                               "-t {1} "
+                               "-c {0}.inv.bp "
+                               "-o {0}.{1}").format(name, compressor),
+                              shell=True)
+    subprocess.check_call(wand_command(name, wand_type, block_size),
                           shell=True)
-    subprocess.check_call(("create_wand_data "
-                           "-c {0}.inv.bp "
-                           "-l {1} "
-                           "--variable-block "
-                           "-o {0}.vbmw").format(name, lamb(name)),
-                          shell=True)
+
+
