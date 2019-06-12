@@ -200,7 +200,7 @@ for collection in args.json["collections"]:
                                "-c {0}.inv.bp "
                                "-o {0}.{1}").format(name, compressor),
                               shell=True)
-        compress_duration = timedelta(seconds=time.time() - start_time)
+        compress_duration = timedelta(seconds=time.time() - start_time).total_seconds()
         total_compress_duration += compress_duration
         print("--- Compressing the {0} index took {1} ---".format(compressor, compress_duration))
     start_time = time.time()
