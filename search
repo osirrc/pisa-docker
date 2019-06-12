@@ -14,6 +14,7 @@ def evaluate_command(name, k, *,
             f"-a {algorithm} "
             f"-i {name}.{index_type} "
             f"-w {name}.{wand_type} "
+            f"-r {algorithm}-{index_type}-{wand_type}-{stemmer} "
             f"--stemmer {stemmer} "
             f"--documents {name}.fwd.bp.doclex "
             f"--terms {name}.fwd.termlex "
