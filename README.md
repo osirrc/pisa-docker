@@ -31,7 +31,20 @@ python run.py search \
   --qrels $(pwd)/qrels/qrels.robust04.txt
 ```
 
-TODO: Add custom args..
+## Runtime Options
+The default search system can be changed. For example, we allow a few different index compression and search algorithms
+to be used. These options are supplied using `--opts [option]=[value]`
+
+### Index
+- `stemmer` can be either `krovetz` or `porter2`, default is `porter2`. 
+- `compressor` can be `opt` (Partitioned Elias Fano), `block_interpolative` (Interpolative), `block_simdbp` (SIMD-BP128), or `block_optpfor` (OPT-PFor Delta), `block_simdbp` is the default. Multiple compressors can be passed using a comma delimiter, eg: `--opts compressor="block_simdbp,opt"`. 
+- `block_type` can be either `fixed` or `variable`, default is `variable`. If `fixed` is used, `block_size` must also be supplied, where `block_size` is a positive integer. 
+
+### Search
+- `stemmer` is the same as above, and is used for stemming queries.
+- `compressor` is the same as above, and should match the given `compressor` used during indexing. However, only one single `compressor` can be provided at a time.
+- `algorithm` can be `wand`, `maxscore`, or `block_max_wand`. `block_max_wand` is the default.
+- `block_type` is the same as above, and should match the given `block_type` used during indexing. For search, `block_size` is not required.
 
 ## Supported collections
 
@@ -43,7 +56,6 @@ For indexing, the corpus name defines the indexing configuration. The following 
 - gov2 - the TREC GOV2 corpus.
 - cw09b - the TREC ClueWeb09 corpus.
 - cw12b - the TREC ClueWeb12 corpus.
-
 
 
 ## Expected Results
