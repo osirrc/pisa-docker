@@ -1,7 +1,7 @@
 {
   "files": {
     "README.md": [
-      ["^# PISA OSIRRC Docker Image ?v?(.*)", "# PISA OSIRRC Docker Image v[version]"]
+      ["^# OSIRRC Docker Image for PISA ?v?(.*)", "# PISA OSIRRC Docker Image v[version]"]
     ]
   },
   "tag": {
