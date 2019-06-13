@@ -192,17 +192,17 @@ for collection in args.json["collections"]:
     bp_duration = timedelta(seconds=time.time() - start_time)
     print("--- Reordering took {} ---".format(bp_duration))
     # Generate an index for each provided coded
-    total_compress_duration = 0
+    start_time = time.time()
     for compressor in compressor_list:
-        start_time = time.time()
+        per_compressor_start_time = time.time()
         subprocess.check_call(("create_freq_index "
                                "-t {1} "
                                "-c {0}.inv.bp "
                                "-o {0}.{1}").format(name, compressor),
                               shell=True)
-        compress_duration = timedelta(seconds=time.time() - start_time)
-        total_compress_duration += compress_duration.total_seconds()
+        compress_duration = timedelta(seconds=time.time() - per_compressor_start_time)
         print("--- Compressing the {0} index took {1} ---".format(compressor, compress_duration))
+    total_compress_duration = timedelta(seconds=time.time() - start_time)
     start_time = time.time()
     subprocess.check_call(wand_command(name, wand_type, block_size),
                           shell=True)
