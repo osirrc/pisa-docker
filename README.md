@@ -1,9 +1,9 @@
-# OSIRRC Docker Image for PISA v0.0.1
+# OSIRRC Docker Image for PISA
 
 [![Build Status](https://travis-ci.com/osirrc/pisa-docker.svg?branch=master)](https://travis-ci.com/osirrc/pisa-docker)
 [![DOI](https://zenodo.org/badge/179735565.svg)](https://zenodo.org/badge/latestdoi/179735565)
 
-[Antonio Mallia](https://github.com/amallia), [Michał Siedlaczek](https://github.com/elshize), [Joel Mackenzie](https://github.com/JMMackenzie), [Torsten Suel](https://github.com/torstensuel)
+[Antonio Mallia](https://github.com/amallia), [Michał Siedlaczek](https://github.com/elshize), [Joel Mackenzie](https://github.com/JMMackenzie), and [Torsten Suel](https://github.com/torstensuel)
 
 This is the docker image for the [PISA: Performant Indexes and Search for Academia](https://github.com/pisa-engine/pisa) (v0.6.3) conforming to the OSIRRC jig for the Open-Source IR Replicability Challenge (OSIRRC 2019) at SIGIR 2019. This image is available on Docker Hub has been tested with the jig at commit b00aab4 (6/6/2019).
 
