@@ -176,6 +176,7 @@ for collection in args.json["collections"]:
     subprocess.check_call(("invert "
                            "-i {0}.fwd "
                            "-o {0}.inv "
+                           "-b 400000 "
                            "--term-count $(cat {0}.fwd.terms | wc -l)")
                           .format(name),
                           shell=True)
