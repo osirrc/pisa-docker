@@ -30,6 +30,11 @@ python run.py search \
   --output $(pwd)/output \
   --qrels $(pwd)/qrels/qrels.robust04.txt
 ```
+## Retrieval Methods
+
+The PISA image supports the following retrieval methods:
+
++ **BM25**: k1=0.9, b=0.4 (Robertson et al., 1995)
 
 ## Runtime Options
 The default search system can be changed. For example, we allow a few different index compression and search algorithms
