@@ -55,9 +55,9 @@ to be used. These options are supplied using `--opts [option]=[value]`
 
 For indexing, the corpus name defines the indexing configuration. The following values are supported:
 
+- robust04 - TREC Disks 4&5. 
 - core17 - the New York Times corpus. 
 - core18 - the TREC Washington Post (WAPO) corpus. 
-- robust04 - TREC Disks 4&5. 
 - gov2 - the TREC GOV2 corpus.
 - cw09b - the TREC ClueWeb09 corpus.
 - cw12b - the TREC ClueWeb12 corpus.
