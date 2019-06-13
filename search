@@ -79,10 +79,16 @@ stemmer = get_stemmer(options)
 algo = get_algo(options)
 wand_type = get_wand_type(options)
 
-subprocess.check_call(
-    "extract_topics -i {0} -o {1}".format(args.json["topic"]["path"], name),
-    shell=True
-)
+if "extract_topics" in options: 
+    subprocess.check_call(
+        "extract_topics -i {0} -o {1}".format(args.json["topic"]["path"], name),
+        shell=True
+    )
+else:
+    subprocess.check_call(
+        "cp {0} {1}.title".format(args.json["topic"]["path"], name),
+        shell=True
+    )
 
 subprocess.check_call(
     evaluate_command(name, k, algo, compressor, wand_type, stemmer),
