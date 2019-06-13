@@ -1,4 +1,4 @@
-# PISA OSIRRC Docker Image v0.0.1
+# OSIRRC Docker Image for PISA v0.0.1
 
 [![Build Status](https://travis-ci.com/osirrc/pisa-docker.svg?branch=master)](https://travis-ci.com/osirrc/pisa-docker)
 [![DOI](https://zenodo.org/badge/179735565.svg)](https://zenodo.org/badge/latestdoi/179735565)
