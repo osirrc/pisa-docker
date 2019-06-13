@@ -78,6 +78,11 @@ and indexing setup, and would need to be searched again if settings are changed
 
 ## Expected Results
 
+### robust04
+
+BM25                                    | MAP       | P@30      | NDCG@20 |
+:---------------------------------------|-----------|-----------|---------|
+[TREC 2004 Robust Track Topics](http://trec.nist.gov/data/robust/04.testset.gz)| 0.2537    | 0.3120    | |
 
 ### core17
 
@@ -115,11 +120,6 @@ BM25                                     |  MAP       | P@30      | NDCG@20 |
 [TREC 2005 Terabyte Track: Topics 751-800](http://trec.nist.gov/data/terabyte05.html)| 0    | 
 [TREC 2006 Terabyte Track: Topics 801-850](http://trec.nist.gov/data/terabyte06.html)| 0    | 
 
-### robust04
-
-BM25                                    | MAP       | P@30      | NDCG@20 |
-:---------------------------------------|-----------|-----------|---------|
-[TREC 2004 Robust Track Topics](http://trec.nist.gov/data/robust/04.testset.gz)| 0.2537    | 0.3120    | |
 
 ## Implementation
 
