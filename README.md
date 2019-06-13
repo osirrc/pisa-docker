@@ -57,6 +57,19 @@ For indexing, the corpus name defines the indexing configuration. The following 
 - cw09b - the TREC ClueWeb09 corpus.
 - cw12b - the TREC ClueWeb12 corpus.
 
+## A note on default configuration
+As discussed above, the default configuration is as follows:
+ - Porter 2 Stemming
+ - SIMD-BP128 compression
+ - Variable-sized blocks and Block-Max WAND, leading to the "Variable BMW" algorithm
+
+Since the Variable-sized blocks depend on a parameter, lambda, we have searched for
+the correct value of lambda offline, and hardcoded these values into the `lamb()`
+method within the `index` call. We found values of lambda that result in a mean
+block size of 40 elements per block, with a possible error rate of plus/minus 0.5
+elements. Please note that these lambda values only apply to the default parsing 
+and indexing setup, and would need to be searched again if settings are changed
+(for example, if a different stemmer was used).
 
 ## Expected Results
 
