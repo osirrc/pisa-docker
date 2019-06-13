@@ -134,7 +134,7 @@ def get_block_type(options):
 # Decides which method to use for generating the wand data
 def wand_command(name, wand_type, block_size):
     if wand_type == "variable":
-        print("Making variable-block wand data, lambda = " + lamb(name))
+        print("Making variable-block wand data, lambda = " + str(lamb(name)))
         return (("create_wand_data "
                            "-c {0}.inv.bp "
                            "-l {1} "
@@ -142,7 +142,7 @@ def wand_command(name, wand_type, block_size):
                            "-o {0}.vbmw").format(name, lamb(name))) 
 
     elif wand_type == "fixed":
-        print("Making fixed-block wand data, block size = " + block_size)
+        print("Making fixed-block wand data, block size = " + str(block_size))
         return (("create_wand_data "
                            "-c {0}.inv.bp "
                            "-b {1} "
