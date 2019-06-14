@@ -81,7 +81,10 @@ def lamb(name):
     elif name.lower() == "gov2":
         return 17
     elif name.lower() == "cw09b":
-        return 21
+        return 22.5
+    elif name.lower() == "cw12b":
+        print "INCORRECT NEEDS UPDATE"
+        return 11
     else:
         print("Unknown collection: " + name)
         print("Using default lambda = 11")
