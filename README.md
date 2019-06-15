@@ -5,7 +5,8 @@
 
 [Antonio Mallia](https://github.com/amallia), [Michał Siedlaczek](https://github.com/elshize), [Joel Mackenzie](https://github.com/JMMackenzie), and [Torsten Suel](https://github.com/torstensuel)
 
-This is the docker image for the [PISA: Performant Indexes and Search for Academia](https://github.com/pisa-engine/pisa) (v0.6.3) conforming to the OSIRRC jig for the Open-Source IR Replicability Challenge (OSIRRC 2019) at SIGIR 2019. This image is available on Docker Hub has been tested with the jig at commit b00aab4 (6/6/2019).
+This is the docker image for the [PISA: Performant Indexes and Search for Academia](https://github.com/pisa-engine/pisa) (v0.6.3) conforming to the [OSIRRC jig](https://github.com/osirrc/jig/) for the [Open-Source IR Replicability Challenge (OSIRRC) at SIGIR 2019](https://osirrc.github.io/osirrc2019/).
+This image is available on Docker Hub has been tested with the jig at commit b00aab4 (6/6/2019).
 
 + Supported test collections: `robust04`, `core17`, `core18` (newswire); `gov2`, `cw09b`, `cw12b` (web)
 + Supported hooks: `init`, `index`, `search`
