@@ -17,7 +17,8 @@ The following `jig` command can be used to index TREC disks 4/5 for `robust04`:
 
 ```
 python run.py prepare 
-  --repo pisa/pisa-osirrc2019 \
+  --repo osirrc2019/pisa \
+  --tag v0.1.1 \
   --collections Robust04=/data/collections/disk45
 ```
 
@@ -25,7 +26,8 @@ The following `jig` command can be used to perform a retrieval run on the collec
 
 ```
 python run.py search \
-  --repo pisa/pisa-osirrc2019  \
+  --repo osirrc2019/pisa \
+  --tag v0.1.1 \
   --collection Robust04 \
   --topic topics/topics.robust04.txt \
   --output $(pwd)/output \
@@ -149,5 +151,4 @@ The retrieval run is performed (using additional `--opts` params, see above) and
 
 ## Reviews
 
-+ Documentation reviewed at commit [xxxxxxx](https://github.com/osirrc/pisa-docker/commit/xxxxx) (mm/dd/yyyy) by [foo](https://github.com/foo/)
-
++ Documentation reviewed at commit [`8f88235`](https://github.com/osirrc/pisa-docker/commit/21d04fb483158e17892ed1515414870b48f88235) (2019-06-17) by [Ryan Clancy](https://github.com/r-clancy/)
