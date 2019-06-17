@@ -88,6 +88,14 @@ def lamb(name):
         print("Using default lambda = 11")
         return 11
 
+# Allow user to skip reordering step
+def get_skip_reordering(options):
+    if "skip_reordering" in options:
+        return True
+    else:
+        return False
+
+    
 # Allow user to input stemmer, validate
 def get_stemmer(options):
     valid = ["porter2", "krovetz"]
@@ -160,6 +168,7 @@ parser.add_argument("--json", type=json.loads,
 args, _ = parser.parse_known_args()
 
 options = args.json["opts"]
+skip_reordering = get_skip_reordering(options)
 stemmer = get_stemmer(options)
 compressor_list = get_compressor_list(options)
 wand_type, block_size = get_block_type(options)
@@ -183,16 +192,18 @@ for collection in args.json["collections"]:
                           shell=True)
     invert_duration = timedelta(seconds=time.time() - start_time)
     print("--- Inverting took {} ---".format(invert_duration))
-    start_time = time.time()
-    subprocess.check_call(("recursive_graph_bisection "
-                           "-c {0}.inv "
-                           "-o {0}.inv.bp "
-                           "--documents {0}.fwd.doclex "
-                           "--reordered-documents {0}.fwd.bp.doclex "
-                           "-m 4096").format(name),
-                            shell=True)
-    bp_duration = timedelta(seconds=time.time() - start_time)
-    print("--- Reordering took {} ---".format(bp_duration))
+    bp_duration = 0
+    if skip_reordering:
+        start_time = time.time()
+        subprocess.check_call(("recursive_graph_bisection "
+                               "-c {0}.inv "
+                               "-o {0}.inv.bp "
+                               "--documents {0}.fwd.doclex "
+                               "--reordered-documents {0}.fwd.bp.doclex "
+                               "-m 4096").format(name),
+                               shell=True)
+        bp_duration = timedelta(seconds=time.time() - start_time)
+        print("--- Reordering took {} ---".format(bp_duration))
     # Generate an index for each provided coded
     start_time = time.time()
     for compressor in compressor_list:
