@@ -193,7 +193,7 @@ for collection in args.json["collections"]:
     invert_duration = timedelta(seconds=time.time() - start_time)
     print("--- Inverting took {} ---".format(invert_duration))
     bp_duration = 0
-    if skip_reordering:
+    if not skip_reordering:
         start_time = time.time()
         subprocess.check_call(("recursive_graph_bisection "
                                "-c {0}.inv "
