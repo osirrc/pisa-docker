@@ -1,3 +1,10 @@
+### Version 0.1.0
+- Update bump.json
+- Cw12b lambda
+- Update README.md
+- Update index
+- Fixed version parsing
+
 ### Version 0.0.0
 - first commit
 - Added initial structure
