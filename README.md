@@ -85,7 +85,7 @@ and indexing setup, and would need to be searched again if settings are changed
 
 BM25                                    | MAP       | P@30      | NDCG@20 |
 :---------------------------------------|-----------|-----------|---------|
-[TREC 2004 Robust Track Topics](http://trec.nist.gov/data/robust/04.testset.gz)| 0.2537    | 0.3120    | |
+[TREC 2004 Robust Track Topics](http://trec.nist.gov/data/robust/04.testset.gz)| 0.2534    | 0.3120    | 0.4221 |
 
 ### core17
 
@@ -97,16 +97,23 @@ BM25                                    | MAP       | P@30      | NDCG@20 |
 
 BM25                                    | MAP       | P@30      | NDCG@20 |
 :---------------------------------------|-----------|-----------|---------|
-[TREC 2018 Common Core Track Topics](https://trec.nist.gov/data/core/topics2018.txt)| 0.2384 | 0.3500 |  |
+[TREC 2018 Common Core Track Topics](https://trec.nist.gov/data/core/topics2018.txt)| 0.2384 | 0.3500 | 0.3927|
+
+### gov2
+
+BM25                                     |  MAP       | P@30      | NDCG@20 |
+:---------------------------------------|------------|-----------|---------|
+[TREC 2004 Terabyte Track: Topics 701-750](http://trec.nist.gov/data/terabyte04.html)| 0.2638 | 0.4776 | 0.4070 | 
+[TREC 2005 Terabyte Track: Topics 751-800](http://trec.nist.gov/data/terabyte05.html)| 0.3305 | 0.5487 | 0.5073   | 
+[TREC 2006 Terabyte Track: Topics 801-850](http://trec.nist.gov/data/terabyte06.html)| 0.2950 | 0.4680 | 0.4925   | 
 
 ### cw09b
 
 BM25                                     | MAP       | P@30      | NDCG@20 |
 :---------------------------------------|-----------|-----------|---------|
-[TREC 2009 Web Track: Topics 1-50](https://trec.nist.gov/data/web/09/wt09.topics.full.xml)| 0    | 
-[TREC 2010 Web Track: Topics 51-100](http://trec.nist.gov/data/web/10/wt2010-topics.xml)| 0    | 
-[TREC 2011 Web Track: Topics 101-150](http://trec.nist.gov/data/web/11/full-topics.xml)| 0    | 
-[TREC 2012 Web Track: Topics 151-200](http://trec.nist.gov/data/web/12/full-topics.xml)| 0    | 
+[TREC 2010 Web Track: Topics 51-100](http://trec.nist.gov/data/web/10/wt2010-topics.xml)| 0.1009 | 0.2521 | 0.1509|
+[TREC 2011 Web Track: Topics 101-150](http://trec.nist.gov/data/web/11/full-topics.xml)| 0.1093 | 0.2507 | 0.2177 |
+[TREC 2012 Web Track: Topics 151-200](http://trec.nist.gov/data/web/12/full-topics.xml)| 0.1054 | 0.2100 | 0.1311 |
 
 ### cw12b
 
@@ -115,13 +122,6 @@ BM25                                     | MAP       | P@30      | NDCG@20 |
 [TREC 2013 Web Track: Topics 201-250](http://trec.nist.gov/data/web2013.html)| 0    | 
 [TREC 2014 Web Track: Topics 251-300](http://trec.nist.gov/data/web2014.html)| 0    |
 
-### gov2
-
-BM25                                     |  MAP       | P@30      | NDCG@20 |
-:---------------------------------------|------------|-----------|---------|
-[TREC 2004 Terabyte Track: Topics 701-750](http://trec.nist.gov/data/terabyte04.html)| 0    | 
-[TREC 2005 Terabyte Track: Topics 751-800](http://trec.nist.gov/data/terabyte05.html)| 0    | 
-[TREC 2006 Terabyte Track: Topics 801-850](http://trec.nist.gov/data/terabyte06.html)| 0    | 
 
 
 ## Implementation
