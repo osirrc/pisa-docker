@@ -1,7 +1,7 @@
 {
   "files": {
     "VERSION": [
-      ["^?v?(.*)", "v[version]"]
+      ["v(.*)", "v[version]"]
     ]
   },
   "tag": {
