@@ -39,8 +39,7 @@ def cw09_parse_command(name, path, stemmer):
             .format(name, path, stemmer))
 
 def cw12_parse_command(name, path, stemmer):
-    return (("zcat "
-             "$(find {1} -type f -name '*.gz')"
+    return (("zcat -r {1}/*"
              " | parse_collection -f warc "
              "-b 10000 --stemmer {2} --content-parser html -o ./{0}.fwd")
             .format(name, path, stemmer))
