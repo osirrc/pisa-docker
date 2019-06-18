@@ -1,13 +1,14 @@
-sudo: 'required'
-
+language: minimal
 services:
-  - docker
-
+- docker
 script:
-  - 'make image'
-
+- docker build -t "$REPO":${TRAVIS_TAG:-latest} .
 after_success:
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-      docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
-      make push-image ;
-    fi
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+- if [[ ( "$TRAVIS_BRANCH" == "master" ) || ( -n "$TRAVIS_TAG" ) ]]; then docker push
+  "$REPO":${TRAVIS_TAG:-latest}; fi
+env:
+  global:
+  - REPO=osirrc2019/pisa
+  - secure: jBh5QcbIS/dMxaE+/Oc1tmqM5Do57G0qUOLvG4mQZPV9Qlktu9ZDe84GR+85+LpmjQ92dE5TXJR56JxgHc+K9s+UqoSR3zsJxnlsX/87c3qOVyXHLTVaK3Hxcb/ydJvpvTz9yMvcKs8Y7lvvz1eXLra9affcU37y0WEySftDq+1bEE9DjkUxNpZtCLyfPYwMmEXH0LTOfRGZ276O/OPasd6IIcoIzLCVZchfsfMncjqJdmpibKSJMhZ2NWuZc685f2XXhvUANUwmYV4H6SUM7ACEmOgXyOc1CfeqimjJ4Y9kXtegoUFobILjB8Vm3DY8Aq/j35y/4gv55WI289GKfYsnGypTAEEwB0pFHdskG/0CzCVlqvRnyJBoYadtG0c9xlkSQhidxjxPbY56zJMcU8EgfQ5tYcyemqIfR2pzir2HxJrONIu/jGf+BXAKjNrtV2fOBDqydssg8BORxV3nOYbq8r9NPTDUhvrtGxZi/MDdKRSskLDvoUBX3OBLnw275WstKb1xpAs5L0ep/L8X6AJ8A0+7O1Fe60+mhzwI0amR6bLgdye9q1B1/i5T8PAghGdNxob+8c/vAXRNTOfkVE0uNJt1vfrcRem0PsG8lJ5l+GKBRFqT5olw4GImC6WnW7BLbqV4dhw6wl9ZOj/qjUbmjOwMsBBnb4CxgWrAvVg=
+  - secure: LbF3yeUbaDz4qHKgb7ADEaPERJ6QiuL65SUlrVQUOmJHH5KNZq2RML4TX3YaH4KtA3ba0Zs7KP4Fr+I4hzruOlbgAux4aaccuKCpFkz0fkl87Ncc8cHNBSyUtMsgvCjYUgL8AiY+xiV/79vszFOyaKc4UTltCzjI858R1WgQ+UPiDDr0QenZcd8Oh0xPWK9DU8GH+Z+SAz4msZTexTgN5b2kEi4W+NZkL52PazKufuM4fOwDFrPLW2E6Y+Kfh2enfKSSBu839Pg2NBQnlskh3pScBao+xznCFD1/w2dXzzgrn/x8IFIbYbM9tQK8aLLlbKHT+BM9C+6uaREFixd9Eqm22YfOHzp09bu/ovEu+XeF6HZNi9sPukCUnauToib77tC/lRZHFIA/N0pM7mvEU8yE3kkk7D9lCL03+fLt86TYc97i++owumdSIckcLBQhZlZrwL8seu25OfsvLt227X1awlc1XnzB7cIXSGxeTMIMlrs5WI7JtoAWbkO5fsKg2q1z4aTZUhDLHAkJrbyxlihtu8usBQLYl5Joq540AJWJffbda7rD0LCXOLxTN1gv9jFSVC38H7dN1C+FWQCebN+942tYdTdbeqOrWe73PAq04MnQ1w5t05JKndsd3sAIfiq7ZDlE2o5jmSzX/2gUT+NmMVQmf0MIk6wNAYKrB9I=
