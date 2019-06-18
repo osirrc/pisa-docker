@@ -1,3 +1,9 @@
+### Version 0.1.2
+- Add review (#14)
+- Update README.md
+- Indexing fix if BP is avoided
+- Update search
+
 ### Version 0.1.1
 - Allow to skip reordering
 - Update index
