@@ -70,31 +70,39 @@ def parse_command(name, path, stemmer):
 
 # Lambda is the VBMW block param.
 # Searched offline, these values will give a mean block size of ~40 elements/block
-def lamb(name):
-    if name.lower() == "robust04":
-        return 16.5
-    elif name.lower() == "core17":
-        return 15
-    elif name.lower() == "core18":
-        return 13.5
-    elif name.lower() == "gov2":
-        return 17
-    elif name.lower() == "cw09b":
-        return 22.5
-    elif name.lower() == "cw12b":
-        return 25.5
+# Depends on whether index was reordered or not
+def get_lambda(name, reordered):
+    if reordered:
+        if name.lower() == "robust04":
+            return 16.5
+        elif name.lower() == "core17":
+            return 15
+        elif name.lower() == "core18":
+            return 13.5
+        elif name.lower() == "gov2":
+            return 17
+        elif name.lower() == "cw09b":
+            return 22.5
+        elif name.lower() == "cw12b":
+            return 25.5
+        else:
+            print("Lambda unknown for bisection ordering and: " + name)
+            print("Using default lambda = 11")
+            return 11
     else:
-        print("Unknown collection: " + name)
-        print("Using default lambda = 11")
-        return 11
-
+        if name.lower() == "cw12b":
+            return 26
+         else:
+            print("Lambda unknown for default order and: " + name)
+            print("Using default lambda = 11")
+            return 11    
+    
 # Allow user to skip reordering step
 def get_skip_reordering(options):
     if "skip_reordering" in options:
         return True
     else:
         return False
-
     
 # Allow user to input stemmer, validate
 def get_stemmer(options):
@@ -141,14 +149,14 @@ def get_block_type(options):
     return block_type, block_size
 
 # Decides which method to use for generating the wand data
-def wand_command(name, wand_type, block_size):
+def wand_command(name, wand_type, block_size, reordered):
     if wand_type == "variable":
-        print("Making variable-block wand data, lambda = " + str(lamb(name)))
+        print("Making variable-block wand data, lambda = " + str(get_lambda(name, reordered)))
         return (("create_wand_data "
                            "-c {0}.inv.bp "
                            "-l {1} "
                            "--variable-block "
-                           "-o {0}.vbmw").format(name, lamb(name))) 
+                           "-o {0}.vbmw").format(name, get_lambda(name, reordered))) 
 
     elif wand_type == "fixed":
         print("Making fixed-block wand data, block size = " + str(block_size))
@@ -169,6 +177,7 @@ args, _ = parser.parse_known_args()
 
 options = args.json["opts"]
 skip_reordering = get_skip_reordering(options)
+do_reordering = not skip_reordering
 stemmer = get_stemmer(options)
 compressor_list = get_compressor_list(options)
 wand_type, block_size = get_block_type(options)
@@ -193,7 +202,7 @@ for collection in args.json["collections"]:
     invert_duration = timedelta(seconds=time.time() - start_time)
     print("--- Inverting took {} ---".format(invert_duration))
     bp_duration = 0
-    if not skip_reordering:
+    if do_reordering:
         start_time = time.time()
         subprocess.check_call(("recursive_graph_bisection "
                                "-c {0}.inv "
@@ -223,7 +232,7 @@ for collection in args.json["collections"]:
         print("--- Compressing the {0} index took {1} ---".format(compressor, compress_duration))
     total_compress_duration = timedelta(seconds=time.time() - start_time)
     start_time = time.time()
-    subprocess.check_call(wand_command(name, wand_type, block_size),
+    subprocess.check_call(wand_command(name, wand_type, block_size, do_reordering),
                           shell=True)
     wand_duration = timedelta(seconds=time.time() - start_time)
     print("--- Extracting block data took {} ---".format(wand_duration))
