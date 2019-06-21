@@ -216,7 +216,9 @@ for collection in args.json["collections"]:
     else:
         print("--- Skipping the reordering phase ----")
         # Link the index files so the rest of the script continues as usual
-        subprocess.check_call(("ln -s {0}.inv {0}.inv.bp").format(name), shell=True)
+        subprocess.check_call(("ln -s {0}.inv.docs {0}.inv.bp.docs").format(name), shell=True)
+        subprocess.check_call(("ln -s {0}.inv.freqs {0}.inv.bp.freqs").format(name), shell=True)
+        subprocess.check_call(("ln -s {0}.inv.sizes {0}.inv.bp.sizes").format(name), shell=True)
         subprocess.check_call(("ln -s {0}.fwd.doclex {0}.fwd.bp.doclex").format(name), shell=True)
 
     # Generate an index for each provided coded
