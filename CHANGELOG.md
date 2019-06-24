@@ -1,3 +1,10 @@
+### Version 0.1.3
+- Update travis
+- Lambda without reordering (#16)
+- Update index
+- Update index
+- Update index
+
 ### Version 0.1.2
 - Add review (#14)
 - Update README.md
