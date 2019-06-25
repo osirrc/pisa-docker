@@ -5,8 +5,8 @@
 
 [Antonio Mallia](https://github.com/amallia), [Michał Siedlaczek](https://github.com/elshize), [Joel Mackenzie](https://github.com/JMMackenzie), and [Torsten Suel](https://github.com/torstensuel)
 
-This is the docker image for the [PISA: Performant Indexes and Search for Academia](https://github.com/pisa-engine/pisa) (v0.6.3) conforming to the [OSIRRC jig](https://github.com/osirrc/jig/) for the [Open-Source IR Replicability Challenge (OSIRRC) at SIGIR 2019](https://osirrc.github.io/osirrc2019/).
-This image is available on Docker Hub has been tested with the jig at commit b00aab4 (6/6/2019).
+This is the docker image for the [PISA: Performant Indexes and Search for Academia](https://github.com/pisa-engine/pisa) (v0.6.6) conforming to the [OSIRRC jig](https://github.com/osirrc/jig/) for the [Open-Source IR Replicability Challenge (OSIRRC) at SIGIR 2019](https://osirrc.github.io/osirrc2019/).
+This image is available on Docker Hub has been tested with the jig at commit f6c6ef4 (19/6/2019).
 
 + Supported test collections: `robust04`, `core17`, `core18` (newswire); `gov2`, `cw09b`, `cw12b` (web)
 + Supported hooks: `init`, `index`, `search`
@@ -119,8 +119,8 @@ BM25                                     | MAP       | P@30      | NDCG@20 |
 
 BM25                                     | MAP       | P@30      | NDCG@20 |
 :---------------------------------------|-----------|-----------|---------|
-[TREC 2013 Web Track: Topics 201-250](http://trec.nist.gov/data/web2013.html)| 0    | 
-[TREC 2014 Web Track: Topics 251-300](http://trec.nist.gov/data/web2014.html)| 0    |
+[TREC 2013 Web Track: Topics 201-250](http://trec.nist.gov/data/web2013.html)| 0.0449 | 0.1940 | 0.1529 |
+[TREC 2014 Web Track: Topics 251-300](http://trec.nist.gov/data/web2014.html)| 0.0217 | 0.1240 | 0.1484 |
 
 
 
