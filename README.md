@@ -47,6 +47,7 @@ to be used. These options are supplied using `--opts [option]=[value]`
 - `stemmer` can be either `krovetz` or `porter2`, default is `porter2`. 
 - `compressor` can be `opt` (Partitioned Elias Fano), `block_interpolative` (Interpolative), `block_simdbp` (SIMD-BP128), or `block_optpfor` (OPT-PFor Delta), `block_simdbp` is the default. Multiple compressors can be passed using a comma delimiter, eg: `--opts compressor="block_simdbp,opt"`. 
 - `block_type` can be either `fixed` or `variable`, default is `variable`. If `fixed` is used, `block_size` must also be supplied, where `block_size` is a positive integer. 
+- `skip_reordering=1` if provided document reordering will not be performed
 
 ### Search
 - `stemmer` is the same as above, and is used for stemming queries.
