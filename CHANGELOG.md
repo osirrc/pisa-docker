@@ -1,3 +1,8 @@
+### Version 0.1.4
+- Update README.md
+- Update README.md
+- Run name (#17)
+
 ### Version 0.1.3
 - Update travis
 - Lambda without reordering (#16)
