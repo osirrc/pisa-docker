@@ -20,7 +20,7 @@ def evaluate_command(name, k,
             f"--terms {name}.fwd.termlex "
             f"-k {k} "
             f"-q {name}.title "
-            f"> /output/{name}-{k}")
+            f"> /output/BM25")
 
 # Allow user to input stemmer, validate
 def get_stemmer(options):
