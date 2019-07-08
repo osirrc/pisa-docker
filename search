@@ -77,6 +77,7 @@ options = args.json["opts"]
 compressor = get_compressor(options)
 stemmer = get_stemmer(options)
 algo = get_algo(options)
+wand_type = get_wand_type(options)
 
 # Do not extract topics if `--opts not_extract_topics` is passed, but just rename it
 if "not_extract_topics" in options:   
